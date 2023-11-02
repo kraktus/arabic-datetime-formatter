@@ -109,6 +109,7 @@ function formatInputDate() {
       minute: 'numeric',
     };
     const _locales = [
+      'en',
       'ar',
       'ar-AE',
       'ar-BH',
@@ -154,7 +155,7 @@ function formatInputDate() {
           const formatted = Intl.DateTimeFormat(locale, options).format(
             datetime
           );
-          const color = colorByDate(formatted);
+          const color = locale == 'en' ? undefined : colorByDate(formatted);
           return [formatted, color];
         })
       );
