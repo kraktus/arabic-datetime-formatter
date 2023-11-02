@@ -61,7 +61,7 @@ const customFormat = (options: Intl.DateTimeFormatOptions, date: Date) => {
     calendar: 'gregory',
     numberingSystem: 'latn',
   };
-  const formatted = Intl.DateTimeFormat('ar-sa', newOptions).format(date);
+  const formatted = Intl.DateTimeFormat('ar-SA', newOptions).format(date);
   console.log('formatted', formatted);
   return formatted;
 };
@@ -122,12 +122,16 @@ function formatInputDate() {
     const monthEl = document.getElementById('month')! as HTMLInputElement;
     const dayEl = document.getElementById('day')! as HTMLInputElement;
     const timeEl = document.getElementById('time')! as HTMLInputElement;
+    const gregoryEl = document.getElementById('gregory')! as HTMLInputElement;
+    const latnEl = document.getElementById('latn')! as HTMLInputElement;
     const options: Intl.DateTimeFormatOptions = {
       year: yearEl.checked ? 'numeric' : undefined,
       month: monthEl.checked ? 'short' : undefined,
       day: dayEl.checked ? 'numeric' : undefined,
       hour: timeEl.checked ? 'numeric' : undefined,
       minute: timeEl.checked ? 'numeric' : undefined,
+      calendar: gregoryEl.checked ? 'gregory' : undefined,
+      numberingSystem: latnEl.checked ? 'latn' : undefined,
     };
     const _locales = [
       'en',
