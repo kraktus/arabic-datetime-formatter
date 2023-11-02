@@ -101,16 +101,17 @@ function formatInputDate() {
   outputElement.innerHTML = '';
 
   if (dateInput !== '') {
-    // retrieve values from year/month/day checkboxes
+    // retrieve values from year/month/day/time checkboxes
     const yearEl = document.getElementById('year')! as HTMLInputElement;
     const monthEl = document.getElementById('month')! as HTMLInputElement;
     const dayEl = document.getElementById('day')! as HTMLInputElement;
+    const timeEl = document.getElementById('time')! as HTMLInputElement;
     const options: Intl.DateTimeFormatOptions = {
       year: yearEl.checked ? 'numeric' : undefined,
       month: monthEl.checked ? 'short' : undefined,
       day: dayEl.checked ? 'numeric' : undefined,
-      hour: 'numeric',
-      minute: 'numeric',
+      hour: timeEl.checked ? 'numeric' : undefined,
+      minute: timeEl.checked ? 'numeric' : undefined,
     };
     const _locales = [
       'en',
