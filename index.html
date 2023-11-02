@@ -5,9 +5,22 @@
   </head>
   <body>
     <h1>Date Formatter</h1>
-    <label for="dateInput">Enter a date:</label>
-    <input type="datetime-local" id="dateTimeInput" value="2022-01-28T23:18" />
-    <button id="formatButton">Format Date</button>
+    <span>
+      <label for="dateInput">Enter a date:</label>
+      <input
+        type="datetime-local"
+        id="dateTimeInput"
+        value="2022-01-28T23:18"
+      />
+      <button id="formatButton">Format Date</button>
+
+      <input type="checkbox" id="year" name="year" value="year" checked />
+      <label for="year">Year</label><br />
+      <input type="checkbox" id="month" name="month" value="month" checked />
+      <label for="month">Month</label><br />
+      <input type="checkbox" id="day" name="day" value="day" checked />
+      <label for="day">Day</label><br />
+    </span>
     <div id="output"></div>
     <script type="module" src="/src/main.ts"></script>
   </body>

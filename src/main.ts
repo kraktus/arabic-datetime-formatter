@@ -101,10 +101,14 @@ function formatInputDate() {
   outputElement.innerHTML = '';
 
   if (dateInput !== '') {
+    // retrieve values from year/month/day checkboxes
+    const yearEl = document.getElementById('year')! as HTMLInputElement;
+    const monthEl = document.getElementById('month')! as HTMLInputElement;
+    const dayEl = document.getElementById('day')! as HTMLInputElement;
     const options: Intl.DateTimeFormatOptions = {
-      year: 'numeric',
-      month: 'short',
-      day: 'numeric',
+      year: yearEl.checked ? 'numeric' : undefined,
+      month: monthEl.checked ? 'short' : undefined,
+      day: dayEl.checked ? 'numeric' : undefined,
       hour: 'numeric',
       minute: 'numeric',
     };
