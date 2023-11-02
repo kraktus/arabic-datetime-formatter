@@ -6,14 +6,19 @@ window.onload = function () {
   formatButton.onclick = formatInputDate;
 };
 
-function createTableRow(data: [[string, string]]) {
+function createTableRow(data: [[string, string | undefined]]) {
   const row = document.createElement('tr');
-
-  data.forEach(([str, color]: [string, string]) => {
+  console.log('foo');
+  console.log('data', data);
+  data.forEach(([str, color]: [string, string | undefined]) => {
+    console.log('each', [str, color]);
     const cell = document.createElement('td');
     cell.textContent = str;
     // set class to color
-    cell.className = color;
+    if (color) {
+      cell.className = color;
+    }
+
     row.appendChild(cell);
   });
 
@@ -48,6 +53,17 @@ const colorMaker = () => {
     return colorHM[formatted];
   };
   return colorByDate;
+};
+
+const customFormat = (options: Intl.DateTimeFormatOptions, date: Date) => {
+  const newOptions: Intl.DateTimeFormatOptions = {
+    ...options,
+    calendar: 'gregory',
+    numberingSystem: 'latn',
+  };
+  const formatted = Intl.DateTimeFormat('ar-sa', newOptions).format(date);
+  console.log('formatted', formatted);
+  return formatted;
 };
 
 const getColumnHeaders = (headerList: [string]) => {
@@ -152,18 +168,25 @@ function formatInputDate() {
     console.log(canonicals);
     const datetimes = getDateTimes(new Date(dateInput));
     console.log(datetimes.length);
-    const headers = getColumnHeaders(canonicals);
+    // create headers canonicals + custom
+    const headersLabel = canonicals.concat(['custom']);
+    const headers = getColumnHeaders(headersLabel);
     const rows = datetimes.map(datetime => {
       const colorByDate = colorMaker();
-      return createTableRow(
-        canonicals.map((locale: string) => {
+
+      let formatteds: [[string, string | undefined]] = canonicals.map(
+        (locale: string) => {
           const formatted = Intl.DateTimeFormat(locale, options).format(
             datetime
           );
           const color = locale == 'en' ? undefined : colorByDate(formatted);
           return [formatted, color];
-        })
+        }
       );
+      // add custom format
+      const custom = customFormat(options, datetime);
+      formatteds.push([custom, colorByDate(custom)]);
+      return createTableRow(formatteds);
     });
     // use headers and rows to create a table and attach it to output
     const table = document.createElement('table');
