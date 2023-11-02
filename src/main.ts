@@ -60,9 +60,10 @@ const customFormat = (options: Intl.DateTimeFormatOptions, date: Date) => {
     ...options,
     calendar: 'gregory',
     numberingSystem: 'latn',
+    // 24 h format
+    hour12: false,
   };
   const formatted = Intl.DateTimeFormat('ar-SA', newOptions).format(date);
-  console.log('formatted', formatted);
   return formatted;
 };
 
